@@ -1,0 +1,12 @@
+angular.json - Workspace configuration file; defines build/serve/test targets, file paths, styles, and scripts for the project.
+tsconfig.json - Root TypeScript compiler configuration shared across the whole workspace.
+tsconfig.app.json - TypeScript configuration specific to the application build (extends tsconfig.json).
+package.json - Lists project dependencies (Angular packages, RxJS, etc.) and npm scripts (start, build, test).
+src/main.ts - Application entry point; bootstraps the root standalone component to start the Angular app in the browser.
+src/app/app.config.ts - Standalone app configuration; registers providers (router, etc.) used to bootstrap the app.
+src/app/app.ts - Root component of the application (Angular 21 naming for what was app.component.ts); the top-level component that hosts the router outlet.
+src/index.html - The single HTML page served to the browser; Angular dynamically injects the app into its <app-root> tag.
+
+angular.json budgets - Under architect > build > configurations > production > budgets, maximumWarning sets the bundle size at which the CLI prints a build warning, and maximumError sets the size at which the build fails outright. These prevent unnoticed bundle bloat in production builds.
+
+dist/ folder - Contains the production build output. Inside dist/student-course-portal/browser/, the main-[hash].js file contains the compiled application code (all TypeScript compiled to JavaScript and bundled). styles-[hash].css contains compiled styles, and index.html is the entry HTML file that loads main.js.
