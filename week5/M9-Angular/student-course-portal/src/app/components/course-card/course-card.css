@@ -1,0 +1,12 @@
+.card--enrolled {
+  border: 2px solid blue;
+}
+.card--full {
+  background-color: #fff7e6;
+}
+.expanded {
+  min-height: 200px;
+}
+.badge--green { color: green; }
+.badge--red { color: red; }
+.badge--grey { color: grey; }
