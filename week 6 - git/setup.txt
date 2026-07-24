@@ -1,3 +1,2 @@
-name=Girinandini
-email=sgirinandini333@gmail.com
-editor=notepad++
+git config done.
+git version 2.47.0
