@@ -1,2 +1,2 @@
-This file is created in GitNewBranch.
-Testing git branching.
+Hello from GitNewBranch!
+This file was added as part of branching practice.
