@@ -1,10 +1,13 @@
-<div *ngIf="course; else noCourse">
+<div *ngIf="loading$ | async" class="loading-banner">Loading course...</div>
+<div *ngIf="error$ | async as error" class="error-banner">{{ error }}</div>
+
+<div *ngIf="course$ | async as course; else noCourse">
   <h2>{{ course.name }}</h2>
   <p>Code: {{ course.code }}</p>
   <p>Credits: {{ course.credits }}</p>
   <p>Status: {{ course.gradeStatus }}</p>
 </div>
 <ng-template #noCourse>
-  <p>Course not found.</p>
+  <p *ngIf="!(loading$ | async)">Course not found.</p>
 </ng-template>
 <a routerLink="/courses">Back to Courses</a>

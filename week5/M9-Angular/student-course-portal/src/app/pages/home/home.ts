@@ -1,7 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CourseService } from '../../services/course';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { CoursesActions } from '../../store/courses/courses.actions';
+import { selectCoursesCount } from '../../store/courses/courses.selectors';
 
 @Component({
   selector: 'app-home',
@@ -14,15 +17,15 @@ export class Home implements OnInit, OnDestroy {
   isPortalActive = true;
   message = '';
   searchTerm = '';
-  coursesAvailable = 0;
+  coursesAvailable$: Observable<number>;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private store: Store) {
+    this.coursesAvailable$ = this.store.select(selectCoursesCount);
+  }
 
   ngOnInit() {
-    this.courseService.getCourses().subscribe({
-      next: courses => (this.coursesAvailable = courses.length),
-    });
-    console.log('HomeComponent initialised — courses loading');
+    this.store.dispatch(CoursesActions.loadCourses());
+    console.log('HomeComponent initialised — dispatched loadCourses');
   }
 
   ngOnDestroy() {

@@ -2,7 +2,7 @@
 <p>Welcome to the Student Course Portal — browse courses, manage enrollment, and track your progress.</p>
 
 <div class="stats-row">
-  <span>Courses Available: {{ coursesAvailable }}</span>
+  <span>Courses Available: {{ coursesAvailable$ | async }}</span>
   <span>Enrolled: 3</span>
   <span>GPA: 3.8</span>
 </div>
@@ -12,5 +12,3 @@
 
 <input [(ngModel)]="searchTerm" placeholder="Search courses">
 <p>Searching for: {{ searchTerm }}</p>
-<!-- [property] is one-way: component -> DOM only.
-     [(ngModel)] is two-way: DOM <-> component, syncing both directions. -->

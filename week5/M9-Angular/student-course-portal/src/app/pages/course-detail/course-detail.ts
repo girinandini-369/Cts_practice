@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CourseService } from '../../services/course';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Course } from '../../models/course.model';
+import { CoursesActions } from '../../store/courses/courses.actions';
+import {
+  selectSelectedCourse,
+  selectCoursesLoading,
+  selectCoursesError,
+} from '../../store/courses/courses.selectors';
 
 @Component({
   selector: 'app-course-detail',
@@ -11,16 +18,18 @@ import { Course } from '../../models/course.model';
   styleUrl: './course-detail.css',
 })
 export class CourseDetail implements OnInit {
-  course: Course | undefined;
-  errorMessage: string | null = null;
+  course$: Observable<Course | null>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService) {}
+  constructor(private route: ActivatedRoute, private store: Store) {
+    this.course$ = this.store.select(selectSelectedCourse);
+    this.loading$ = this.store.select(selectCoursesLoading);
+    this.error$ = this.store.select(selectCoursesError);
+  }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.courseService.getCourseById(id).subscribe({
-      next: course => (this.course = course),
-      error: err => (this.errorMessage = err.message),
-    });
+    this.store.dispatch(CoursesActions.loadCourseById({ id }));
   }
 }

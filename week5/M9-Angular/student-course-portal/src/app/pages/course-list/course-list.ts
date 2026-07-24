@@ -2,9 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { CourseCard } from '../../components/course-card/course-card';
-import { CourseService } from '../../services/course';
 import { Course } from '../../models/course.model';
+import { CoursesActions } from '../../store/courses/courses.actions';
+import {
+  selectAllCourses,
+  selectCoursesLoading,
+  selectCoursesError,
+} from '../../store/courses/courses.selectors';
 
 @Component({
   selector: 'app-course-list',
@@ -13,28 +20,25 @@ import { Course } from '../../models/course.model';
   styleUrl: './course-list.css',
 })
 export class CourseList implements OnInit {
-  isLoading = true;
-  courses: Course[] = [];
+  courses$: Observable<Course[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
   selectedCourseId: number | null = null;
   searchTerm = '';
-  errorMessage: string | null = null;
 
   constructor(
-    private courseService: CourseService,
+    private store: Store,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.courses$ = this.store.select(selectAllCourses);
+    this.loading$ = this.store.select(selectCoursesLoading);
+    this.error$ = this.store.select(selectCoursesError);
+  }
 
   ngOnInit() {
     this.searchTerm = this.route.snapshot.queryParamMap.get('search') || '';
-    this.courseService.getCourses().subscribe({
-      next: courses => (this.courses = courses),
-      error: err => {
-        this.errorMessage = err.message;
-        this.isLoading = false;
-      },
-      complete: () => (this.isLoading = false),
-    });
+    this.store.dispatch(CoursesActions.loadCourses());
   }
 
   trackByCourseId(index: number, course: Course) {
