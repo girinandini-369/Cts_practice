@@ -68,7 +68,16 @@ describe('CourseService', () => {
       error: (err) => expect(err.message).toBe('Failed to load courses. Please try again.'),
     });
 
-    const reqs = httpMock.match(API_URL);
-    reqs.forEach((r) => r.flush('server error', { status: 500, statusText: 'Server Error' }));
+    // Initial request
+    const req1 = httpMock.expectOne(API_URL);
+    req1.flush('server error', { status: 500, statusText: 'Server Error' });
+
+    // First retry
+    const req2 = httpMock.expectOne(API_URL);
+    req2.flush('server error', { status: 500, statusText: 'Server Error' });
+
+    // Second retry
+    const req3 = httpMock.expectOne(API_URL);
+    req3.flush('server error', { status: 500, statusText: 'Server Error' });
   });
 });

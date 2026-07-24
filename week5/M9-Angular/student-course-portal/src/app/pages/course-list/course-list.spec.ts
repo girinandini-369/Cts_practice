@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideMockStore } from '@ngrx/store/testing';
+import { provideRouter } from '@angular/router';
 import { CourseList } from './course-list';
 
 describe('CourseList', () => {
@@ -9,6 +10,19 @@ describe('CourseList', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CourseList],
+      providers: [
+        provideMockStore({
+          initialState: {
+            courses: {
+              courses: [],
+              selectedCourse: null,
+              loading: false,
+              error: null
+            }
+          }
+        }),
+        provideRouter([]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CourseList);
@@ -20,3 +34,4 @@ describe('CourseList', () => {
     expect(component).toBeTruthy();
   });
 });
+
