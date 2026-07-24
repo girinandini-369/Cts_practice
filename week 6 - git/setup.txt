@@ -1,7 +1,3 @@
-# Git Setup Configuration
-The following global configurations have been applied:
-- user.name = Girinandini
-- user.email = sgirinandini333@gmail.com
-- core.editor = notepad++.exe
-
-Configuration completed successfully.
+name=Girinandini
+email=sgirinandini333@gmail.com
+editor=notepad++

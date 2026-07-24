@@ -1,6 +1,6 @@
-# Branch Feature Implementation
-This file is part of the GitNewBranch feature branch.
-It demonstrates working on a separate line of development.
+Feature: User Login
 
-Modifications in this branch will be merged into the trunk (main)
-once the feature is complete and tested.
+Scenario: Valid user login
+  Given the user is on the login page
+  When the user enters valid credentials
+  Then the user should be redirected to the dashboard
