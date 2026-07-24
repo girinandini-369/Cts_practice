@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { Highlight } from '../../directives/highlight';
 import { CreditLabel } from '../../pipes/credit-label';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-card',
@@ -10,10 +11,11 @@ import { CreditLabel } from '../../pipes/credit-label';
   styleUrl: './course-card.css',
 })
 export class CourseCard implements OnChanges {
-  @Input() course!: { id: number, name: string, code: string, credits: number, gradeStatus?: string, enrolled?: boolean };
+  @Input() course!: Course;
   @Output() enrollRequested = new EventEmitter<number>();
 
   isExpanded = false;
+  isEnrolled = false;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['course']) {
@@ -22,13 +24,20 @@ export class CourseCard implements OnChanges {
     }
   }
 
-  toggleExpanded() {
+  toggleExpanded(): void {
     this.isExpanded = !this.isExpanded;
+  }
+
+  toggleEnroll(): void {
+    this.isEnrolled = !this.isEnrolled;
+    if (this.course?.id) {
+      this.enrollRequested.emit(this.course.id);
+    }
   }
 
   get cardClasses() {
     return {
-      'card--enrolled': !!this.course?.enrolled,
+      'card--enrolled': this.isEnrolled,
       'card--full': (this.course?.credits ?? 0) >= 4,
       'expanded': this.isExpanded,
     };

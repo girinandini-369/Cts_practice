@@ -1,1 +1,6 @@
-<p>student-profile works!</p>
+<h2>Student Profile</h2>
+<h4>Enrolled Courses</h4>
+<ul>
+  <li *ngFor="let c of enrolledCourses">{{ c.name }} ({{ c.code }})</li>
+</ul>
+<p *ngIf="enrolledCourses.length === 0">No courses enrolled yet.</p>

@@ -11,5 +11,5 @@
   </span>
 
   <button (click)="toggleExpanded()">Show Details</button>
-  <button (click)="enrollRequested.emit(course.id)">Enroll</button>
+  <button (click)="toggleEnroll()">{{ isEnrolled ? 'Unenroll' : 'Enroll' }}</button>
 </div>
