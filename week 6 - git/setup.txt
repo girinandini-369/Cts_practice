@@ -1,2 +1,4 @@
-git config done.
-git version 2.47.0
+git version 2.47.0.windows.2
+user.name=Girinandini
+user.email=sgirinandini333@gmail.com
+core.editor=notepad++.exe
