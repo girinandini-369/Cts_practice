@@ -17,6 +17,7 @@ export class CourseList implements OnInit {
   courses: Course[] = [];
   selectedCourseId: number | null = null;
   searchTerm = '';
+  errorMessage: string | null = null;
 
   constructor(
     private courseService: CourseService,
@@ -25,11 +26,15 @@ export class CourseList implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.courses = this.courseService.getCourses();
     this.searchTerm = this.route.snapshot.queryParamMap.get('search') || '';
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
+    this.courseService.getCourses().subscribe({
+      next: courses => (this.courses = courses),
+      error: err => {
+        this.errorMessage = err.message;
+        this.isLoading = false;
+      },
+      complete: () => (this.isLoading = false),
+    });
   }
 
   trackByCourseId(index: number, course: Course) {

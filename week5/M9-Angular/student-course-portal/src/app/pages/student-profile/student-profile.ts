@@ -15,6 +15,8 @@ export class StudentProfile implements OnInit {
   constructor(private enrollmentService: EnrollmentService) {}
 
   ngOnInit() {
-    this.enrolledCourses = this.enrollmentService.getEnrolledCourses();
+    this.enrollmentService.getEnrolledCourses().subscribe({
+      next: courses => (this.enrolledCourses = courses),
+    });
   }
 }

@@ -3,6 +3,7 @@
 <input [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Search courses" name="search">
 
 <p *ngIf="isLoading">Loading courses...</p>
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <div *ngIf="!isLoading">
   <ng-container *ngIf="courses.length > 0; else noCourses">

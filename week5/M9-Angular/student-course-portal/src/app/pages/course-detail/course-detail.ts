@@ -12,11 +12,15 @@ import { Course } from '../../models/course.model';
 })
 export class CourseDetail implements OnInit {
   course: Course | undefined;
+  errorMessage: string | null = null;
 
   constructor(private route: ActivatedRoute, private courseService: CourseService) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.course = this.courseService.getCourseById(id);
+    this.courseService.getCourseById(id).subscribe({
+      next: course => (this.course = course),
+      error: err => (this.errorMessage = err.message),
+    });
   }
 }

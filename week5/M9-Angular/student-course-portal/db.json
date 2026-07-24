@@ -1,0 +1,9 @@
+{
+  "courses": [
+    { "id": 1, "name": "Data Structures", "code": "CS201", "credits": 4, "gradeStatus": "passed" },
+    { "id": 2, "name": "Web Development", "code": "CS305", "credits": 3, "gradeStatus": "pending" },
+    { "id": 3, "name": "Database Systems", "code": "CS310", "credits": 3, "gradeStatus": "failed" },
+    { "id": 4, "name": "Operating Systems", "code": "CS320", "credits": 4, "gradeStatus": "passed" },
+    { "id": 5, "name": "Computer Networks", "code": "CS330", "credits": 3, "gradeStatus": "pending" }
+  ]
+}
