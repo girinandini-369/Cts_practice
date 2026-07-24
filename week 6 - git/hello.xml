@@ -1,1 +1,9 @@
-<message>Hello from main and GitWork resolved</message>
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <name>GitDemoApp</name>
+    <version>1.0.0</version>
+    <description>
+        This configuration file contains settings for the GitDemo application.
+        The conflict between the GitWork branch and main has been resolved.
+    </description>
+</application>
